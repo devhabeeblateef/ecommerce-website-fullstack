@@ -48,6 +48,7 @@ export const orderType = defineType({
             type: "string",
             validation: (Rule) => Rule.required(),
         }),
+        
         defineField({
             name: "products",
             title: "Products",
@@ -60,7 +61,7 @@ export const orderType = defineType({
                             name: "product",
                             title: "Products Bought",
                             type: "reference",
-                            to: [{type: "product"}],
+                            to: [{ type: "product" }], // Ensure `product` schema exists
                         }),
                         defineField({
                             name: "quantity",
@@ -70,23 +71,27 @@ export const orderType = defineType({
                     ],
                     preview: {
                         select: {
-                            product: "priduct.name",
+                            product: "product.name",
                             quantity: "quantity",
                             image: "product.image",
                             price: "product.price",
                             currency: "product.currency",
                         },
-                        prepare(select){
+                        prepare(select) {
+                            const subtitle = select.price && select.quantity
+                                ? `${select.price * select.quantity}`
+                                : "Price or quantity missing";
                             return {
-                                title: `${select.product} x ${select.quantity}`,
-                                subtitle: `${select.price * select.quantity}`,
-                                media: select.image
+                                title: `${select.product} x ${select.quantity || 0}`,
+                                subtitle,
+                                media: select.image,
                             };
                         },
-                    }
-                })
-            ]
+                    },
+                }),
+            ],
         }),
+        
        defineField({
         name: "totalPrice",
         title: "Total Price",

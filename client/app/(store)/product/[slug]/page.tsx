@@ -3,6 +3,8 @@ import { getProductBySlug } from "@/sanity/lib/products/getProductBySlug";
 import { notFound } from "next/navigation";
 import Image from "next/image";
 import { PortableText } from "next-sanity";
+import { Button } from "@/components/ui/button";
+import AddToBasketButton from "@/components/AddToBasketButton";
 
 async function ProductPage( { params } : { params: Promise <{slug: string }> }){
     const { slug } = await params;
@@ -33,9 +35,8 @@ async function ProductPage( { params } : { params: Promise <{slug: string }> }){
                             </div>
                     )}
                 </div>
-            </div>
 
-                    <div className="flex flex-col justify-between">
+                <div className="flex flex-col justify-between">
                         <div>
                             <h1 className="text-3xl font-bold mb-4">{product.name}</h1>
                             <div className="text-xl font-semibold mb-4">
@@ -47,7 +48,14 @@ async function ProductPage( { params } : { params: Promise <{slug: string }> }){
                                 )}
                             </div>
                         </div>
+
+                        <div className="mt-6">
+                            <AddToBasketButton product={product} disabled={isOutOfStock} />
+                        </div>
                     </div>
+            </div>
+
+                  
         </div>
     )
 }

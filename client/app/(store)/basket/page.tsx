@@ -55,7 +55,7 @@ function BasketPage(){
                 orderNumber: crypto.randomUUID(), //example: ab3las-djjdd-djjdd-jdjd22
                 customerName: user?.fullName ?? "Unknown",
                 customerEmail: user?.emailAddresses[0].emailAddress ?? "Unknown",
-                clerkUserId: user?.id
+                clerkUserId: user?.id,
             }
 
             const checkoutUrl = await createCheckoutSession(groupedItems, metadata)

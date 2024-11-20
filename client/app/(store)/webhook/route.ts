@@ -3,6 +3,7 @@ import { backendClient } from "@/sanity/lib/backendClient";
 import { NextRequest, NextResponse } from "next/server";
 import Stripe from "stripe";
 import { headers } from "next/headers";
+import { Metadata } from "@/actions/createCheckoutSession";
 
 export async function POST(req: NextRequest){
     const body = await req.text();
@@ -40,7 +41,7 @@ export async function POST(req: NextRequest){
         const session = event.data.object as Stripe.Checkout.Session;
         
         try{
-            const order = await createOrderInSanity(session);
+             await createOrderInSanity(session);
             console.log("Order created in Sanity");
         }catch (err){
             console.error("Error creating order in Sanity: ", err);

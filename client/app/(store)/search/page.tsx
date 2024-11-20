@@ -5,9 +5,10 @@ import React from 'react'
 async function SearchPage({
     searchParams
 }: {
-    searchParams: {
+    searchParams: Promise<{
         query: string
-    };
+    }>;
+    
 }) {
     const {query} = await searchParams;
     const products = await searchProductByName(query)

@@ -54,7 +54,7 @@ export async function createCheckoutSession(
       metadata,
       mode: "payment",
       allow_promotion_codes: true,
-      success_url: successUrl,
+      success_url: "https://ecommerce-app-ecru-nu.vercel.app/",
       cancel_url: cancelUrl,
       line_items: items.map((item) => ({
         price_data: {
